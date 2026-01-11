@@ -10,12 +10,12 @@ export interface userResponse {
 
 export interface payloadType {
     username: string;
-    token: string;
+    id: string;
 }
 
 
 export interface RequestWithUser extends Request {
-    user?: payloadType;
+    user: payloadType;
 }
 
 

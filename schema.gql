@@ -2,6 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type generalProductResponse {
+  message: String!
+}
+
+"""Describe cada producto con su nombre, disponibilidad y cantidad"""
+type Product {
+  """Identifica el producto con un identificador"""
+  id: ID!
+
+  """Nombre de producto"""
+  name: String!
+
+  """Cantidad de producto"""
+  quantity: Float!
+
+  """Disponibilidad del producto"""
+  availability: String!
+
+  """Descripción del producto"""
+  description: String
+}
+
 """Representa un usuario y sus credenciales"""
 type User {
   """Identificador unico de usuario"""
@@ -15,6 +37,9 @@ type User {
 
   """Muestra si el usuario ha sido borrado"""
   deletedAt: DateTime
+
+  """Muestra aquellos productos creados por el usuario"""
+  products: [Product!]!
 }
 
 """
@@ -35,11 +60,13 @@ type Query {
 
   """Encuentra un usuario por su identificador"""
   findOneUser(id: String!): User!
+  FindAllProducts: [Product!]!
+  FindOneProduct(id: String!): Product!
 }
 
 type Mutation {
   """Crea un nuevo usuario"""
-  createUser(request: CreateUserDto!): User!
+  createUser(newUser: CreateUserDto!): User!
 
   """Actualiza las credenciales de un usuario existente"""
   updateUser(id: String!, body: UpdateUserDto!): String!
@@ -52,6 +79,9 @@ type Mutation {
 
   """Requiere las credenciales de un usuario registrado y devuelve un token"""
   login(body: LoginDto!): UserClass!
+  createProduct(createProductInput: CreateProductDto!): generalProductResponse!
+  updateProduct(id: String!, updateProductInput: UpdateProductDto!): generalProductResponse!
+  removeProduct(id: String!): generalProductResponse!
 }
 
 """
@@ -70,4 +100,26 @@ input UpdateUserDto {
 input LoginDto {
   username: String!
   password: String!
+}
+
+input CreateProductDto {
+  """Nombre de producto"""
+  name: String!
+
+  """Cantidad de producto"""
+  quantity: Float!
+
+  """Disponibilidad del producto"""
+  availability: String!
+}
+
+input UpdateProductDto {
+  """Nombre de producto"""
+  name: String
+
+  """Cantidad de producto"""
+  quantity: Float
+
+  """Disponibilidad del producto"""
+  availability: String
 }

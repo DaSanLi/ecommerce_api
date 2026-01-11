@@ -26,8 +26,8 @@ export class UsersResolver {
 
     @UsePipes(new ValidationPipe)
     @Mutation(() => User, {description: "Crea un nuevo usuario"})
-    createUser(@Args('request') request: CreateUserDto) {
-        return this.usersService.createUser(request);
+    createUser(@Args('newUser') newUser: CreateUserDto) {
+        return this.usersService.createUser(newUser);
     }
 
     @UsePipes(new ValidationPipe)

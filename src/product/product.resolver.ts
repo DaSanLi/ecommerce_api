@@ -24,19 +24,19 @@ export class ProductResolver {
   }
 
   @UseGuards(AuthGuard)
-  @Mutation(() => generalProductResponse)
+  @Mutation(() => generalProductResponse, { name: "CreateProduct" })
   createProduct(@Args('createProductInput') createProductInput: CreateProductDto, @Context('req') req: RequestWithUser) {
     return this.productService.create(createProductInput, req.user.id);
   }
 
   @UseGuards(AuthGuard)
-  @Mutation(() => generalProductResponse)
+  @Mutation(() => generalProductResponse, { name: "updateProduct" })
   updateProduct(@Args('id') id: string, @Args('updateProductInput') updateProductInput: UpdateProductDto, @Context('req') req: RequestWithUser) {
     return this.productService.update(id, updateProductInput, req.user.id);
   }
 
   @UseGuards(AuthGuard)
-  @Mutation(() => generalProductResponse)
+  @Mutation(() => generalProductResponse, { name: "RemoveProduct" })
   removeProduct(@Args('id') id: string, @Context('req') req: RequestWithUser) {
     return this.productService.remove(id, req.user.id);
   }

@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, DeleteDateColumn, OneToMany } from "typeorm";
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Product } from "../../product/entities/product.entity";
+import { Invoice } from "../../invoice/entities/invoice.entity";
 
 @Entity()
 @ObjectType({ description: "Representa un usuario y sus credenciales" })
@@ -25,4 +26,12 @@ export class User {
     @OneToMany(() => Product, (product) => product.user, {eager: true})
     @Field(() => [Product], { description: 'Muestra aquellos productos creados por el usuario' })
     products: Product[];
+
+    //describe al comprador de un producto
+    @OneToMany(() => Invoice, (invoice) => invoice.buyer)
+    buyer: Invoice[];
+
+    //describe al vendedor de un producto
+    @OneToMany(() => Invoice, (invoice) => invoice.seller)
+    seller: Invoice[];
 }

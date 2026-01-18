@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module'
 import { GraphQlModule } from './graph-ql/graph-ql.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
+import { InvoiceModule } from './invoice/invoice.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ProductModule } from './product/product.module';
     UserModule,
     AuthModule,
     ProductModule,
+    InvoiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

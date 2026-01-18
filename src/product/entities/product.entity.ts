@@ -1,7 +1,8 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { productAvailability } from '../types/types';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, OneToMany } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
+import { InvoiceItems } from '../../invoice/entities/invoiceItems.entity';
 
 @Entity()
 @ObjectType({ description: 'Describe cada producto con su nombre, disponibilidad y cantidad' })
@@ -15,10 +16,6 @@ export class Product {
   @Field({ description: 'Nombre de producto' })
   name: string;
 
-  @Column({ type: 'int' })
-  @Field({ description: 'Cantidad de producto' })
-  quantity: number;
-
   @Column({ type: 'enum', enum: productAvailability })
   @Field({ description: 'Disponibilidad del producto' })
   availability: productAvailability;
@@ -30,4 +27,7 @@ export class Product {
   @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  @OneToMany(() => InvoiceItems, (invoiceItems) => invoiceItems.product)
+  invoicesItems: InvoiceItems[];
 }

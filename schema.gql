@@ -6,6 +6,26 @@ type generalProductResponse {
   message: String!
 }
 
+type Invoice {
+  """Identifica la factura con un identificador"""
+  id: ID!
+
+  """Muestra el precio total de la factura"""
+  total: Float!
+
+  """Identifica el comprador con su identificador"""
+  buyer: String!
+
+  """Identifica el vendedor con su identificador"""
+  seller: String!
+
+  """Muestra la fecha de referencia"""
+  createdAt: String!
+
+  """Muestra la fecha de referencia"""
+  state: String!
+}
+
 """Describe cada producto con su nombre, disponibilidad y cantidad"""
 type Product {
   """Identifica el producto con un identificador"""
@@ -13,9 +33,6 @@ type Product {
 
   """Nombre de producto"""
   name: String!
-
-  """Cantidad de producto"""
-  quantity: Float!
 
   """Disponibilidad del producto"""
   availability: String!
@@ -62,6 +79,7 @@ type Query {
   findOneUser(id: String!): User!
   FindAllProducts: [Product!]!
   FindOneProduct(id: String!): Product!
+  invoice(id: Int!): Invoice!
 }
 
 type Mutation {
@@ -79,9 +97,12 @@ type Mutation {
 
   """Requiere las credenciales de un usuario registrado y devuelve un token"""
   login(body: LoginDto!): UserClass!
-  createProduct(createProductInput: CreateProductDto!): generalProductResponse!
+  CreateProduct(createProductInput: CreateProductDto!): generalProductResponse!
   updateProduct(id: String!, updateProductInput: UpdateProductDto!): generalProductResponse!
-  removeProduct(id: String!): generalProductResponse!
+  RemoveProduct(id: String!): generalProductResponse!
+  createInvoice(createInvoiceInput: CreateInvoiceInput!): Invoice!
+  updateInvoice(updateInvoiceInput: UpdateInvoiceInput!): Invoice!
+  removeInvoice(id: Int!): Invoice!
 }
 
 """
@@ -122,4 +143,15 @@ input UpdateProductDto {
 
   """Disponibilidad del producto"""
   availability: String
+}
+
+input CreateInvoiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateInvoiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
